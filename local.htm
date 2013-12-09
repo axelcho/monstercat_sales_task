@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Monstercat Sales Data</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    
+    //call the arrays 
+
+    total = [["Month","Album","Single","Streaming","Total"],["06/2012",12740,419,0,13159],["08/2012",13413,3673,21158,38244],["09/2012",22456,3951,14376,40783],["10/2012",21880,4869,3454,30203],["11/2012",25649,4134,15418,45201],["12/2012",27006,7493,37159,71658],["01/2013",16662,5803,5435,27900],["02/2013",28949,7172,51061,87182],["03/2013",48225,6258,44508,98991],["04/2013",25823,6687,49319,81829],["05/2013",21575,8110,57971,87656],["06/2013",50011,6717,56703,113431],["07/2013",54880,10761,61757,127398],["08/2013",14368,2269,62007,78644]];
+    album = [["Month","Album"],["06/2012",12740],["08/2012",13413],["09/2012",22456],["10/2012",21880],["11/2012",25649],["12/2012",27006],["01/2013",16662],["02/2013",28949],["03/2013",48225],["04/2013",25823],["05/2013",21575],["06/2013",50011],["07/2013",54880],["08/2013",14368]];
+	single = [["Month","Single"],["06/2012",419],["08/2012",3673],["09/2012",3951],["10/2012",4869],["11/2012",4134],["12/2012",7493],["01/2013",5803],["02/2013",7172],["03/2013",6258],["04/2013",6687],["05/2013",8110],["06/2013",6717],["07/2013",10761],["08/2013",2269]];
+    streaming = [["Month","Streaming"],["06/2012",0],["08/2012",21158],["09/2012",14376],["10/2012",3454],["11/2012",15418],["12/2012",37159],["01/2013",5435],["02/2013",51061],["03/2013",44508],["04/2013",49319],["05/2013",57971],["06/2013",56703],["07/2013",61757],["08/2013",62007]];
+    
+    //default is showing all
+    input = total;
+
+    //load google chart library
+    
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(input);
+
+        var options = {
+            title: 'Sales Data'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    
+    </script>
+    </head>
+    <body>
+    <div style = "text-align: center; font-size:20px; margin-top:40px;">
+    <input type = 'radio' id = 'all' name = 'select' checked>All
+    <input type = 'radio' id = 'album' name = 'select'>Album
+    <input type = 'radio' id = 'single' name = 'select'>Single
+    <input type = 'radio' id = 'streaming' name = 'select'>Streaming
+    <script type = 'text/javascript'>
+    
+   $( "#all" ).click(function() {
+     input = total; 
+     drawChart();
+    });
+    
+    
+    $( "#streaming" ).click(function() {
+     input = streaming; 
+     drawChart();
+    });
+    
+    $( "#album" ).click(function() {
+     input = album; 
+     drawChart();
+    });
+    
+    $( "#single" ).click(function() {
+     input = single; 
+     drawChart();
+    });
+    </script>
+    </div>
+    <div id="chart_div" style="width: 100%; height: 500px; left-margin:auto; right-margin:auto;"></div>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Monstercat Sales Data</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    
+    //call the arrays 
+
+    total = {{JSON.stringify(Total)}};
+    album = {{JSON.stringify(Album)}};
+	single = {{JSON.stringify(Single)}};
+    streaming = {{JSON.stringify(Streaming)}};
+    
+    //default is showing all
+    input = total;
+
+    //load google chart library
+    
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(input);
+
+        var options = {
+            title: 'Sales Data'
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    
+    </script>
+    </head>
+    <body>
+    <div style = "text-align: center; font-size:20px; margin-top:40px;">
+    <input type = 'radio' id = 'all' name = 'select' checked>All
+    <input type = 'radio' id = 'album' name = 'select'>Album
+    <input type = 'radio' id = 'single' name = 'select'>Single
+    <input type = 'radio' id = 'streaming' name = 'select'>Streaming
+    <script type = 'text/javascript'>
+    
+   $( "#all" ).click(function() {
+     input = total; 
+     drawChart();
+    });
+    
+    
+    $( "#streaming" ).click(function() {
+     input = streaming; 
+     drawChart();
+    });
+    
+    $( "#album" ).click(function() {
+     input = album; 
+     drawChart();
+    });
+    
+    $( "#single" ).click(function() {
+     input = single; 
+     drawChart();
+    });
+    </script>
+    </div>
+    <div id="chart_div" style="width: 100%; height: 500px; left-margin:auto; right-margin:auto;"></div>
+  </body>
+</html>
